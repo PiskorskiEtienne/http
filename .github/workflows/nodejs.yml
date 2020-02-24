@@ -19,7 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm start &
-           curl http://127.0.0.1/
+           curl http://127.0.0.1:8080/
     - run: npm test
       env:
         CI: true
