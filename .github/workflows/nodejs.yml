@@ -21,7 +21,7 @@ jobs:
     - run: |
            npm start &
            sleep 10
-           curl http://127.0.0.1:8080/
+           ping http://127.0.0.1:8080/ -c 4
     - run: npm test
       env:
         CI: true
