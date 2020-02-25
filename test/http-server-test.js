@@ -60,7 +60,7 @@ vows.describe('http-server').addBatch({
             fs.readFile(path.join(root, 'file'), 'utf8', function (err, data) {
               self.callback(err, data, body);
             });
-          },
+          }
         }
       },
       '\nit should fallback to the proxied server': {
