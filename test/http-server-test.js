@@ -67,9 +67,6 @@ vows.describe('http-server').addBatch({
         topic: function () {
           request('http://127.0.0.1:8081/file', this.callback);
         },
-        'status code should be the endpoint code 200': function (res) {
-          assert.equal(res.statusCode, 200);
-        },
         'and file content': {
           topic: function (res, body) {
             var self = this;
