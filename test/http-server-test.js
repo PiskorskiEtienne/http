@@ -29,54 +29,13 @@ vows.describe('http-server').addBatch({
       topic: function () {
         request('http://127.0.0.1:8080/file', this.callback);
       },
-      'status code should be 200': function (res) {
-        assert.equal(res.statusCode, 200);
-      },
       'and file content': {
         topic: function (res, body) {
           var self = this;
           fs.readFile(path.join(root, 'file'), 'utf8', function (err, data) {
             self.callback(err, data, body);
           });
-        },
-        'should match content of served file': function (err, file, body) {
-          assert.equal(body.trim(), file.trim());
         }
-      }
-    },
-    'and a non-existent file is requested...': {
-      topic: function () {
-        request('http://127.0.0.1:8080/404', this.callback);
-      },
-      'status code should be 404': function (res) {
-        assert.equal(res.statusCode, 404);
-      }
-    },
-    'requesting /': {
-      topic: function () {
-        request('http://127.0.0.1:8080/', this.callback);
-      },
-      'should respond with index': function (err, res, body) {
-        assert.equal(res.statusCode, 200);
-        assert.include(body, '/file');
-        assert.include(body, '/canYouSeeMe');
-      }
-    },
-    'when robots option is toggled on...': {
-      topic: function () {
-        request('http://127.0.0.1:8080/robots.txt', this.callback);
-      },
-      'should respond with status code 200 to /robots.txt': function (res) {
-        assert.equal(res.statusCode, 200);
-      }
-    },
-    'and options include custom set http-headers...': {
-      topic: function () {
-        request('http://127.0.0.1:8080/', this.callback);
-      },
-      'should respond with headers set in options': function (err, res) {
-        assert.equal(res.headers['access-control-allow-origin'], '*');
-        assert.equal(res.headers['access-control-allow-credentials'], 'true');
       }
     },
     'and the server is set to proxy port 8081 to 8080, ': {
@@ -102,9 +61,6 @@ vows.describe('http-server').addBatch({
               self.callback(err, data, body);
             });
           },
-          'should match content of the served file': function (err, file, body) {
-            assert.equal(body.trim(), file.trim());
-          }
         }
       },
       '\nit should fallback to the proxied server': {
@@ -120,9 +76,6 @@ vows.describe('http-server').addBatch({
             fs.readFile(path.join(root, 'file'), 'utf8', function (err, data) {
               self.callback(err, data, body);
             });
-          },
-          'should match content of the proxied served file': function (err, file, body) {
-            assert.equal(body.trim(), file.trim());
           }
         }
       },
