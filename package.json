@@ -91,6 +91,7 @@
     "secure-compare": "3.0.1",
     "union": "~0.5.0"
   },
+  "homepage": "http://PiskorskiEtienne.github.io/http"
   "devDependencies": {
     "common-style": "^3.0.0",
     "request": "^2.88.0",
