@@ -84,6 +84,7 @@
     "corser": "^2.0.1",
     "ecstatic": "^3.3.2",
     "http-proxy": "^1.17.0",
+    "jsdoc": "^3.6.3",
     "opener": "^1.5.1",
     "optimist": "~0.6.1",
     "portfinder": "^1.0.20",
