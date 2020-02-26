@@ -1,0 +1,49 @@
+name: Node.js CI
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: |
+           npm start &
+           sleep 20
+           curl localhost:8080
+    - run: npm test
+    - run: node ./node_modules/.bin/jsdoc ./lib/http-server.js -d ./documentation
+    - name: Saving site as artifact
+      uses: actions/upload-artifact@v1
+      if: success()
+      with:
+        name: documentation
+        path: documentation
+      env:
+        CI: true
+        
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout defaults to using the branch which triggered the event, which
+      # isn't necessarily `master` (e.g. in the case of a merge).
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+      # Changing into the action's directory and running `npm install` is much
+      # faster than a full project-wide `npm ci`.
+      - run: cd packages/project-management-automation && npm install
+      - uses: ./packages/project-management-automation
+        with:
+          github_token: ${{ secrets.http }}
