@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v1
       if: success()
       with:
-        name: documentation${{github.ref}}
+        name: ${{github.ref}}
         path: documentation
       env:
         CI: true
@@ -49,7 +49,7 @@ jobs:
     - name: Dowloading docs stored as artifacts
       uses: actions/download-artifact@v1
       with:
-        name: documentation
+        name: ${{github.ref}}
     #On déploie la documentation sur le site https://piskorskietienne.github.io/http/
     - name: Deploy on GitHub Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
