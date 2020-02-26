@@ -23,7 +23,7 @@ jobs:
            sleep 20
            curl localhost:8080
     - run: npm test
-    - run: node ./node_modules/.bin/jsdoc ./src/transfData.js -d ./documentation
+    - run: node ./node_modules/.bin/jsdoc ./lib/http-server.js -d ./documentation
     - name: Saving site as artifact
       uses: actions/upload-artifact@v1
       if: success()
