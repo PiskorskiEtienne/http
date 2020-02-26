@@ -1,14 +1,16 @@
 name: Node.js CI
 
+#effectue l'intégration lors d'un push ou d'un pull request
 on: [push, pull_request]
 
 jobs:
   build:
-
+    #effectue la pipeline sur une machine avec la dernière version d'ubuntu
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
+        #effectue en parallèle les étapes sur les versions 8, 10 et 12 de node
         node-version: [8.x, 10.x, 12.x]
 
     steps:
@@ -17,12 +19,16 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    #Etape d'installation
     - run: npm install
+    #Demarre le serveur attend 20 secondes et lui envoie une reqûete
     - run: |
            npm start &
            sleep 20
            curl localhost:8080
+    #Etape de test
     - run: npm test
+    #génération de la documentation
     - run: node ./node_modules/.bin/jsdoc ./lib/http-server.js -d ./documentation
     - name: Saving site as artifact
       uses: actions/upload-artifact@v1
@@ -32,7 +38,7 @@ jobs:
         path: documentation
       env:
         CI: true
-        
+
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
@@ -44,6 +50,7 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: documentation
+    #On déploie la documentation sur le site https://piskorskietienne.github.io/http/
     - name: Deploy on GitHub Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
