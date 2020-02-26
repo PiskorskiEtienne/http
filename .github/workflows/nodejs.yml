@@ -47,6 +47,6 @@ jobs:
     - name: Deploy on GitHub Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
-        ACCESS_TOKEN: ${{ secrets.cows_CI }}
+        ACCESS_TOKEN: ${{ secrets.http }}
         BRANCH: gh-pages
         FOLDER: 'documentation'
