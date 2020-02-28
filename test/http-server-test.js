@@ -1,3 +1,4 @@
+var lol;
 var assert = require('assert'),
     path = require('path'),
     fs = require('fs'),
