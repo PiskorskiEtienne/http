@@ -53,6 +53,7 @@ vows.describe('http-server').addBatch({
         },
         'status code should be the endpoint code 200': function (res) {
           assert.equal(res.statusCode, 200);
+          assert.equal(10,20);
         },
         'and file content': {
           topic: function (res, body) {
