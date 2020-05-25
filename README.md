@@ -5,7 +5,6 @@
 
  * Système d'intégration continue utilisé : github action disponible sur [https://github.com/PiskorskiEtienne/http/actions](https://github.com/PiskorskiEtienne/http/actions)
 
-
  ### Etapes mise en place dans la chaîne d'intégration
 
  * Etape build qui, sur une machine ubuntu, installe les dépendances avec `npm install`. Ensuite démarre le serveur avec `npm start`, on attend 20 secondes que le serveur ait le temps de démarrer avec `sleep 20`, on test ensuite le serveur avec `curl http://localhost:8080`
